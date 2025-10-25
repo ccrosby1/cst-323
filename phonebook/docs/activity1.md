@@ -43,7 +43,7 @@
 
 ---
 
-## Application progress
+## Application Progress
 
  - The test application is fully functional and meets all outlined requirements. It follows a standard N-Layer architecture with separate model, repository, service, and controller components. The ContactController manages user-facing pages, while the ContactApiController handles REST API operations.
  
