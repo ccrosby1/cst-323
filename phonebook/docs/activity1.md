@@ -36,7 +36,9 @@
 ## Database Design
 
  - Contacts Table
-    ![Contacts database table](images/DBTable-Contacts.png)
+    
+   ![Contacts database table](images/DBTable-Contacts.png)
+     
      - The database for the test application consists of a single table, Contacts, which stores all user-entered contact information such as names, phone numbers, and email addresses
 
 ---
