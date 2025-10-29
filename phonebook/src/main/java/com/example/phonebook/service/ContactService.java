@@ -62,4 +62,13 @@ public class ContactService {
     public void deleteContact(int id) {
         repository.deleteById(id);
     }
+    
+    /**
+     * Check if email exists
+     * @param email email to check
+     * @return true if email exists, false otherwise
+     */
+    public boolean emailExists(String email) {
+        return repository.findByEmail(email).isPresent();
+    }
 }

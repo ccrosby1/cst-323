@@ -15,8 +15,11 @@ import com.example.phonebook.service.ContactService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -93,6 +96,7 @@ public class ContactController {
     public String showEditForm(@PathVariable int id, Model model) {
     	logger.info("Loading edit form for contact ID: {}", id);
         Optional<Contact> contactOpt = service.getContactById(id);
+        
         if (contactOpt.isPresent()) {
             model.addAttribute("contact", contactOpt.get());
             return "contact-form";
@@ -108,8 +112,21 @@ public class ContactController {
      * @return redirect back to Contacts view
      */
     @PostMapping("/create")
-    public String createContact(@ModelAttribute Contact contact) {
-    	logger.info("Creating new contact: {}", contact);
+    public String createContact(@Valid @ModelAttribute Contact contact, BindingResult result, Model model) {
+    	// check for existing email
+    	if (service.emailExists(contact.getEmail())) {
+            result.rejectValue("email", "error.contact", "Email is already associated with another contact");
+        }
+    	
+    	//validate form data
+    	if (result.hasErrors()) {
+            logger.warn("Validation errors while creating contact: {}", result.getAllErrors());
+            model.addAttribute("contact", contact);
+            return "contact-form";
+        }
+        
+    	// save new contact
+        logger.info("Creating new contact: {}", contact);
         service.saveContact(contact);
         return "redirect:/contacts/contacts-page";
     }
@@ -121,9 +138,18 @@ public class ContactController {
      * @return redirect back to Contacts view
      */
     @PostMapping("/update/{id}")
-    public String updateContact(@PathVariable int id, @ModelAttribute Contact contact) {
+    public String updateContact(@PathVariable int id, @Valid @ModelAttribute Contact contact, BindingResult result, Model model) {
+        contact.setId(id);
+        
+        // validate form data
+        if (result.hasErrors()) {
+            logger.warn("Validation errors while updating contact ID {}: {}", id, result.getAllErrors());
+            model.addAttribute("contact", contact);
+            return "contact-form";
+        }
+        
+        // save updated contact
         logger.info("Updating contact with ID {}: {}", id, contact);
-    	contact.setId(id);
         service.saveContact(contact);
         return "redirect:/contacts/contacts-page";
     }
