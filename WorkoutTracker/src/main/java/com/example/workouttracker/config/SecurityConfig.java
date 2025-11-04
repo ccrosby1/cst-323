@@ -1,3 +1,12 @@
+/**
+ * SecurityConfig.java
+ * 
+ * Configuration class for Spring Security
+ * 
+ * Cody Crosby & Daniel Hanson
+ * CST-323: Cloud Computing
+ * GCU 2025
+ */
 package com.example.workouttracker.config;
 
 import com.example.workouttracker.service.UserService;

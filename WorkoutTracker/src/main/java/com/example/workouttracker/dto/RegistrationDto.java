@@ -1,3 +1,12 @@
+/**
+ * RetgistrationDto.java
+ * 
+ * This DTO represents data for user registration
+ * 
+ * Cody Crosby & Daniel Hanson
+ * CST-323: Cloud Computing
+ * GCU 2025
+ */
 package com.example.workouttracker.dto;
 
 import jakarta.validation.constraints.Email;

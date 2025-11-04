@@ -1,3 +1,12 @@
+/**
+ * WorkoutService.java
+ * 
+ * Service class for managing workout CRUD operations
+ * 
+ * Cody Crosby & Daniel Hanson
+ * CST-323: Cloud Computing
+ * GCU 2025
+ */
 package com.example.workouttracker.service;
 
 import java.util.List;

@@ -1,3 +1,12 @@
+/**
+ * User.java
+ * 
+ * This class represents a user model
+ * 
+ * Cody Crosby & Daniel Hanson
+ * CST-323: Cloud Computing
+ * GCU 2025
+ */
 package com.example.workouttracker.model;
 
 import jakarta.persistence.*;

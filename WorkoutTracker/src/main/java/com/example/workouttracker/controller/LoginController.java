@@ -1,4 +1,12 @@
-
+/**
+ * LoginController.java
+ * 
+ * This controller handles login requests for the workout tracker application
+ * 
+ * Cody Crosby & Daniel Hanson
+ * CST-323: Cloud Computing
+ * GCU 2025
+ */
 package com.example.workouttracker.controller;
 
 import org.springframework.stereotype.Controller;

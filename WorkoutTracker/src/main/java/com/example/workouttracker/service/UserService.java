@@ -1,3 +1,12 @@
+/**
+ * UserService.java
+ * 
+ * Service class for managing user authentication and registration
+ * 
+ * Cody Crosby & Daniel Hanson
+ * CST-323: Cloud Computing
+ * GCU 2025
+ */
 package com.example.workouttracker.service;
 
 import com.example.workouttracker.dto.RegistrationDto;

@@ -1,3 +1,12 @@
+/**
+ * WorkoutRepository.java
+ * 
+ * Repository interface for workout data access
+ * 
+ * Cody Crosby & Daniel Hanson
+ * CST-323: Cloud Computing
+ * GCU 2025
+ */
 package com.example.workouttracker.repository;
 
 import com.example.workouttracker.model.Workout;
