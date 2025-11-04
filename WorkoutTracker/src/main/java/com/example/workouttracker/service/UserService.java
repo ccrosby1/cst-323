@@ -1,7 +1,7 @@
 package com.example.workouttracker.service;
 
 import com.example.workouttracker.dto.RegistrationDto;
-import com.example.workouttracker.entity.User;
+import com.example.workouttracker.model.User;
 import com.example.workouttracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;

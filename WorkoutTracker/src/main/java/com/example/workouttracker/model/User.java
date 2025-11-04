@@ -1,4 +1,4 @@
-package com.example.workouttracker.entity;
+package com.example.workouttracker.model;
 
 import jakarta.persistence.*;
 
@@ -9,7 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private int userId;
     @Column(nullable = false, unique = true)
     private String username;
     private String email;
@@ -17,10 +17,10 @@ public class User {
 
     // ----------- Getters and Setters ----------- //
     
-    public Long getUserId() {
+    public int getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getUsername() {
