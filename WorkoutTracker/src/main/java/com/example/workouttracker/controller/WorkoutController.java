@@ -45,7 +45,7 @@ public class WorkoutController {
     public String listWorkouts(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         List<Workout> workouts = workoutService.getWorkoutsByUsername(userDetails.getUsername());
        
-     // Print to console
+        // Print to console --- REMOVE AFTER TESTING ---
         System.out.println("Workouts for user " + userDetails.getUsername() + ":");
         workouts.forEach(System.out::println);
         

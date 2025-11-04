@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `workout` (
   `date` DATETIME NULL DEFAULT NULL,
   `name` VARCHAR(45) NULL DEFAULT NULL,
   `duration` INT(11) NULL DEFAULT NULL,
-  `muscleGroup` VARCHAR(100) NULL DEFAULT NULL,
+  `muscle_group` VARCHAR(100) NULL DEFAULT NULL,
   `notes` TEXT NULL DEFAULT NULL,
   `users_user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `workout` (
   INDEX `fk_workout_users_idx` (`users_user_id` ASC),
   CONSTRAINT `fk_workout_users`
     FOREIGN KEY (`users_user_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
+    REFERENCES `users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
