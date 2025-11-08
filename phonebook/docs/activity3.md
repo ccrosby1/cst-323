@@ -70,7 +70,7 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
  
  3. Upload app.jar and web.config to the root of wwwroot as zip file
  
-  ![Azure web app](images/azure-app.png)
+  ![Azure web app](images/azure-app.PNG)
  	
   - Screenshot of the created Azure application
   
