@@ -66,13 +66,12 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
  1. Create a Web App: choose Java 17 + Tomcat 9, Windows OS, and code publish
  
+ ![Azure web app](images/azure-app.PNG)
+    - Screenshot of the created Azure application
+ 
  2. Use Advanced Tools (Kudu) to access site/wwwroot and remove existing files
  
  3. Upload app.jar and web.config to the root of wwwroot as zip file
- 
-  ![Azure web app](images/azure-app.PNG)
- 	
-  - Screenshot of the created Azure application
   
   ![Azure wwwroot](images/azure-root.png)
   
@@ -138,13 +137,22 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
  	
  6. Forego Testing
-    - f
+    - Assuming an application will work as it did on-premises and avoiding adequate testing is another possible mistake. This can lead to downtime, data loss, or performance degradation.
+    
+    - Testing environments should be set up to mirror production as closely as possible. Organizations should perform load and performance tests before going live to identify and fix potential issues.
+
  	
  7. Failure to Train
-    - f
+    - Staff should be prepared to properly manage and operate the new cloud environment before migration is completed. Without proper training, teams may misuse services or be unable to troubleshoot post-migration issues.
+    
+    - Organizations should invest in training and documentation for cloud operations. Encouraging certifications, like AWS Cloud Practitioner, help ensure a minimum understanding of cloud management and best practices.
+
  	
  8. Not Monitoring
-    - f
+    - Neglecting ongoing monitoring and maintenance can easily degrade application reliability. Without visibility into performance and usage, small issues can snowball into major outages.
+    
+    - Implement proactive monitoring using tools like CloudWatch or Azure Monitor can provide the needed visibility into cloud health. Regularly reviewing logs, metrics, and alerts ensures optimal performance and allows quick response to potential problems.
+
 
 ### B. Azure vs Heroku
 
