@@ -66,8 +66,7 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
  1. Create a Web App: choose Java 17 + Tomcat 9, Windows OS, and code publish
  
- ![Azure web app](images/azure-app.PNG)
-    
+    - ![Azure web app](images/azure-app.PNG)
     - Screenshot of the created Azure application
  
  2. Use Advanced Tools (Kudu) to access site/wwwroot and remove existing files
