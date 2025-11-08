@@ -106,10 +106,47 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 ## Cloud Computing Research
 
-### A.
+### A. Worst Practices
 
-### B.
+ 1. Migrating Without Planning
+    - Beginning a migration without a well-defined plan or understanding of what the organization wants to achieve can lead to disorganized execution and unexpected costs.
+   
+    - Organizations should develop a detailed cloud migration strategy that outlines objectives, timelines, workloads to move, and criteria for success. Conducting assessments and cost-benefit analysis before help ensure that each step supports the overall strategy.
 
+
+ 2. Ignoring Dependencies
+    - Forgetting or ignoring dependencies between applications, databases, and services can lead to downtime once workloads are moved. Applications that rely on legacy systems or shared resources may fail.
+    
+    - Use dependency mapping tools or diagrams to identify how components interact before migration. Testing and validation in a sandbox environment can help find potential issues early.
+
+ 	
+ 3. Failure to Optimize
+    - Moving a legacy on-premises environment without optimizing for cloud infrastructure can waste resources and limit scalability. The application may not be able to fully utilize the benefits of elasticity, automation, and managed services.
+    
+    - Refactoring or rearchitecting applications where possible will help optimize the application and is use of resources. Taking advantage of serverless architectures, autoscaling, and cloud-native services can improve performance and reduce costs.
+
+ 	
+ 4. Neglecting Security
+    - Overlooking cloud security can be an incredibly serious mistake. Assuming the cloud provider handles all aspects of security can lead to unprotected data, compliance violations, and breaches.
+    
+    - Cloud security is a shared responsibility. Organizations should configure access controls, encrypt sensitive data, and use built-in cloud security tools like IAM policies, monitoring, and compliance audits to maintain strong protection. Where the cloud provider is usually responsible for the physical security of their resources.
+
+ 	
+ 5. Poor Budgeting
+    - Failing to understand pricing models of cloud services can lead to unexpected expenses and overprovisioning. Idle instances, unused storage, or excessive data transfer can all lead to excessive costs.
+    - Setting up cloud cost monitoring and alerts is the first step in managing pricing. Using tools like AWS Cost Explorer or Azure Cost Management helps track resource usage, while properly sizing instances and using reserved or spot instances can reduce expenses.
+
+ 	
+ 6. Forego Testing
+    - f
+ 	
+ 7. Failure to Train
+    - f
+ 	
+ 8. Not Monitoring
+    - f
+
+### B. Azure vs Heroku
 
 
  |Feature|Azure|OpenShift|
@@ -132,8 +169,8 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 - The test application was successfully deployed to Microsoft Azure, along with it's MySQL database. Setup required troubleshooting of issues such as static resource rendering, port configuration, an Azure region exclusions. The Heroku portion of the assignment was unable to be completed due to the service not allowing creation of a new account. Key takeways include:
 
-		- Configuring database credentials and web.config files
+    - Configuring database credentials and web.config files
 	
-		- Creating and deploying web apps on PaaS environments
+    - Creating and deploying web apps on PaaS environments
 	
-		- Importance of proper syntax in environment and configuration files
+    - Importance of proper syntax in environment and configuration files
