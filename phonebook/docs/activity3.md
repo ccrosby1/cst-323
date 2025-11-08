@@ -31,7 +31,7 @@
  
  4. Confirm and create the database
  
- ![Created database](images/azure-db.png)
+ ![Created database](images/azure-db.PNG)
  
   - Screenshot of the created Azure Database. I began the how-to before seeing the instruction to capture screenshots during the creation process
  
