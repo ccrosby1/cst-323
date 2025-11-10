@@ -7,7 +7,7 @@
 
 ## Introduction
 
-- This activity walks through the full process of deploying a Spring Boot web application to Microsoft Azure using a MySQL database backend. The steps included provisioning a flexible MySQL server, configuring database access and schema, updating the Spring Boot application’s connection properties, and deploying the packaged JAR file to an Azure Web App.
+- This activity walks through the full process of deploying a Spring Boot web application to Microsoft Azure and Salesforce Heroku using a MySQL database backend. The steps will include provisioning a cloud MySQL server, configuring database access and schema, updating the Spring Boot application’s connection properties, and deploying the packaged JAR file to each provider.
  
 ---
 
@@ -17,9 +17,9 @@
  
 ### 1. Provision the MySQL Database
 
- 1. Log into the Azure Portal and search for **Azure Database for MySQL**
+ 1. Log into the Azure Portal and search for Azure Database for MySQL
  
- 2. Create a **Flexible Server** instance using Azure for Students subscription
+ 2. Create a Flexible Server instance using Azure for Students subscription
  
  3. Configure the database:
     
@@ -37,7 +37,7 @@
  
 ### 2. Initialize the Database Schema
 
- 1. Navigate to **Databases** and find **+ Add** to create the schema
+ 1. Navigate to Databases and find + Add to create the schema
  
  2. Connect using MySQL Workbench and the provided connection details
  
@@ -48,7 +48,7 @@
  
 ### 3. Configure the Spring Boot Application
 
- 1. Update `application.properties` with Azure MySQL credentials:
+ 1. Update application.properties file with Azure MySQL credentials:
  
  ```properties
 spring.datasource.url=jdbc:mysql://cst323contacts.mysql.database.azure.com:3306/cst323activity
@@ -66,7 +66,7 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
  1. Create a Web App: choose Java 17 + Tomcat 9, Windows OS, and code publish
  
-    - ![Azure web app](images/azure-app.PNG)
+   ![Azure web app](images/azure-app.PNG)
     - Screenshot of the created Azure application
  
  2. Use Advanced Tools (Kudu) to access site/wwwroot and remove existing files
@@ -175,10 +175,12 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 ## Conclusion
 
-- The test application was successfully deployed to Microsoft Azure, along with it's MySQL database. Setup required troubleshooting of issues such as static resource rendering, port configuration, an Azure region exclusions. The Heroku portion of the assignment was unable to be completed due to the service not allowing creation of a new account. Key takeways include:
+ - The test application was successfully deployed to Microsoft Azure, along with it's MySQL database. Setup required troubleshooting of issues such as static resource rendering, port configuration, an Azure region exclusions. Key takeways include:
 
     - Configuring database credentials and web.config files
 	
     - Creating and deploying web apps on PaaS environments
 	
     - Importance of proper syntax in environment and configuration files
+    
+ - The Heroku portion of the assignment was unable to be completed due to the service not allowing creation of a new student account.
