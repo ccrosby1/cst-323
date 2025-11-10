@@ -24,26 +24,42 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	/**
+	 * Configure security filter chain
+	 * @param http HttpSecurity
+	 * @return SecurityFilterChain
+	 * @throws Exception if an error occurs
+	 */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+            	// allow public access to login, registration, and static resources
                 .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
+                // require authentication of all other requests
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/home", true)
+                .loginPage("/login") // custom login page
+                .defaultSuccessUrl("/home", true)// redirect to home on login
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout")
+                .logoutSuccessUrl("/login?logout")// redirect to login on logout
                 .permitAll()
             );
 
         return http.build();
     }
 
+    /**
+     * Configure authentication manager
+     * @param http HttpSecurity
+     * @param userService UserService
+     * @param passwordEncoder PasswordEncoder
+     * @return AuthenticationManager
+     * @throws Exception if an error occurs
+     */
     @Bean
     public AuthenticationManager authenticationManager(
             HttpSecurity http,
@@ -57,6 +73,10 @@ public class SecurityConfig {
             .build();
     }
     
+    /**
+     * Password encoder bean
+     * @return PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance(); // Plain text, not for production!

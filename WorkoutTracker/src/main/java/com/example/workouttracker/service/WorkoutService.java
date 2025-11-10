@@ -24,22 +24,33 @@ import com.example.workouttracker.repository.WorkoutRepository;
 @Service
 public class WorkoutService {
 
+	// Inject workout and user repositories
     @Autowired
     private WorkoutRepository workoutRepository;
 
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Saves a workout for specified user
+     * @param workout workout data to save
+     * @param username username of user
+     */
     public void saveWorkout(Workout workout, String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         if (optionalUser.isPresent()) {
-            workout.setUser(optionalUser.get());
-            workoutRepository.save(workout);
+            workout.setUser(optionalUser.get()); // link workout to user
+            workoutRepository.save(workout); // save workout
         } else {
             throw new UsernameNotFoundException("User not found: " + username);
         }
     }
     
+    /**
+     * Retrieves all workouts for given username
+     * @param username username of user
+     * @return list of workouts, empty if user not found
+     */
     public List<Workout> getWorkoutsByUsername(String username) {
         return userRepository.findByUsername(username)
                 .map(user -> workoutRepository.findByUser_UserId(user.getUserId()))

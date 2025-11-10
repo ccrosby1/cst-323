@@ -18,5 +18,10 @@ import java.util.List;
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
 
+	/**
+	 * Find workouts by user ID
+	 * @param userId the user ID
+	 * @return list of workouts for the user
+	 */
     List<Workout> findByUser_UserId(int userId);
 }

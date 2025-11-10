@@ -16,6 +16,17 @@ import com.example.workouttracker.model.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUsername(String username);
+    /**
+     * Find user by usermame
+     * @param username username to search
+     * @return Optional user object
+     */
+	Optional<User> findByUsername(String username);
+	
+	/**
+	 * Find user by email
+	 * @param email email to search
+	 * @return Optional user object
+	 */
     Optional<User> findByEmail(String email);
 }
