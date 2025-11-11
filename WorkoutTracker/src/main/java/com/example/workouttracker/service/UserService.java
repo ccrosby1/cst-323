@@ -84,6 +84,13 @@ public class UserService implements UserDetailsService {
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword()); // USE ENCODING IN PRODUCTION
-        userRepository.save(user);
+
+        try {
+            userRepository.save(user); // save new user
+            logger.info("Registered new user: {}", user.getUsername());
+        } catch (Exception e) { // handle save errors
+            logger.error("Failed to register user '{}': {}", user.getUsername(), e.getMessage());
+            throw e;
+        }
     }
 }

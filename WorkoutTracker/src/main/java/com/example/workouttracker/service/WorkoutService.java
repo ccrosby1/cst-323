@@ -15,6 +15,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.example.workouttracker.model.User;
 import com.example.workouttracker.model.Workout;
@@ -24,10 +26,12 @@ import com.example.workouttracker.repository.WorkoutRepository;
 @Service
 public class WorkoutService {
 
+    // Logger for debugging/monitoring
+    private static final Logger logger = LoggerFactory.getLogger(WorkoutService.class);
+    
 	// Inject workout and user repositories
     @Autowired
     private WorkoutRepository workoutRepository;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -38,10 +42,14 @@ public class WorkoutService {
      */
     public void saveWorkout(Workout workout, String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
+        
+        // check if user exists
         if (optionalUser.isPresent()) {
             workout.setUser(optionalUser.get()); // link workout to user
             workoutRepository.save(workout); // save workout
+            logger.info("Saved workout '{}' for user '{}'", workout, username);
         } else {
+        	logger.error("Failed to save workout: User '{}' not found", username);
             throw new UsernameNotFoundException("User not found: " + username);
         }
     }
@@ -53,7 +61,43 @@ public class WorkoutService {
      */
     public List<Workout> getWorkoutsByUsername(String username) {
         return userRepository.findByUsername(username)
-                .map(user -> workoutRepository.findByUser_UserId(user.getUserId()))
-                .orElseGet(List::of);
+        		.map(user -> {
+        			// retrieve workouts for user
+                    List<Workout> workouts = workoutRepository.findByUser_UserId(user.getUserId());
+                    logger.info("Retrieved {} workouts for user '{}'", workouts.size(), username);
+                    return workouts;
+                })
+        		// return empty list if user not found
+                .orElseGet(() -> {
+                    logger.warn("User '{}' not found. Returning empty list", username);
+                    return List.of();
+                });
+    }
+    
+    /**
+     * Delete workout by ID if it belongs to user
+     * @param workoutId id of workout to delete
+     * @param username username of user
+     */
+    public void deleteWorkoutById(int workoutId, String username) {
+    	Optional<Workout> optionalWorkout = workoutRepository.findById(workoutId);
+    	
+    	// check if workout exists
+    	if (optionalWorkout.isPresent()) {
+    		Workout workout = optionalWorkout.get();
+    		// verify workout belongs to user
+    		if(workout.getUser().getUsername().equals(username)) {
+    			workoutRepository.deleteById(workoutId);
+    			logger.info("Deleted workout '{}' by user '{}'", workoutId, username);
+    		} else {
+    			// unauthorized deletion attempt
+    			logger.warn("Unauthorized deletion attempt by user '{}'", username);
+    			throw new SecurityException("Unauthorized to delete this workout");
+    		}
+    	} else {
+    		// workout not found
+    		logger.error("Workout not found with ID: {}", workoutId);
+    		throw new IllegalArgumentException("Workout not found with ID: " + workoutId);
+    	}
     }
 }

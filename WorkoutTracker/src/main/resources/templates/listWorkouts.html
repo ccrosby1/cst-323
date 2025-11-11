@@ -3,7 +3,30 @@
 	<body>
 		<div th:fragment="content">
     		<h2>Your Workouts</h2>
-    		<!-- Workout list will go here -->
+
+			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+				<div class="col" th:each="workout : ${workouts}">
+			    	<div class="card h-100 shadow-sm">
+			        	<div class="card-body">
+			            	<h5 class="card-title" th:text="${workout.name}">Workout Name</h5>
+							<h6 class="card-subtitle mb-2 text-muted" th:text="${#temporals.format(workout.date, 'MMM dd, yyyy HH:mm')}">Date</h6>
+							<p class="card-text">
+								<strong>Duration:</strong> <span th:text="${workout.duration}">45</span> min<br>
+								<strong>Muscle Group:</strong> <span th:text="${workout.muscleGroup}">Chest</span><br>
+								<strong>Notes:</strong> <span th:text="${workout.notes}">Felt strong today</span>
+							</p>
+						</div>
+						<div class="card-footer d-flex justify-content-between">
+							<a th:href="@{'/workouts/edit/' + ${workout.id}}" class="btn btn-sm btn-outline-primary">Edit</a>
+							<form th:action="@{'/workouts/delete/' + ${workout.id}}" method="post"
+							          onsubmit="return confirm('Are you sure you want to delete this workout?');"
+							          style="display:inline;">
+								<button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

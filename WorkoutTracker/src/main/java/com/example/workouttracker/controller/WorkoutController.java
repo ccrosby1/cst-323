@@ -74,4 +74,18 @@ public class WorkoutController {
         model.addAttribute("workouts", workouts);
         return "listWorkouts";
     }
+    
+    /**
+     * Delete workout by id
+     * @param id id of workout to delete
+     * @param userDetails Authenticated user details
+     * @return redirect to workout list
+     */
+    @PostMapping("/delete/{id}")
+    public String DeleteWorkout(@PathVariable("id") int id,
+    							@AuthenticationPrincipal UserDetails userDetails) {
+		// delete workout by id, send username for verification
+		workoutService.deleteWorkoutById(id, userDetails.getUsername());
+		return "redirect:/workouts";
+	}
 }
