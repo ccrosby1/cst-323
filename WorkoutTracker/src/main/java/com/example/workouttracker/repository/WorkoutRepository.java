@@ -19,9 +19,9 @@ import java.util.List;
 public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
 
 	/**
-	 * Find workouts by user ID
+	 * Find workouts by user ID ordered by date descending
 	 * @param userId the user ID
 	 * @return list of workouts for the user
 	 */
-    List<Workout> findByUser_UserId(int userId);
+    List<Workout> findByUser_UserIdOrderByDateDesc(int userId);
 }

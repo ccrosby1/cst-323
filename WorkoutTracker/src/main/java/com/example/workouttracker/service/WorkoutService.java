@@ -63,7 +63,7 @@ public class WorkoutService {
         return userRepository.findByUsername(username)
         		.map(user -> {
         			// retrieve workouts for user
-                    List<Workout> workouts = workoutRepository.findByUser_UserId(user.getUserId());
+                    List<Workout> workouts = workoutRepository.findByUser_UserIdOrderByDateDesc(user.getUserId());
                     logger.info("Retrieved {} workouts for user '{}'", workouts.size(), username);
                     return workouts;
                 })

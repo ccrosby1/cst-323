@@ -56,22 +56,34 @@ public class WorkoutController {
     }
     
     /**
-     * List workouts for authenticated user
+     * List workouts for authenticated user with optional search
+     * @param query Optional search query
      * @param userDetails Authenticated user details
      * @param model Model to hold workouts
      * @return list workouts view
      */
     @GetMapping
-    public String listWorkouts(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String listWorkouts(@RequestParam(value="query", required=false) String query,
+    						   @AuthenticationPrincipal UserDetails userDetails, 
+    						   Model model) {
         // get workouts for user
     	List<Workout> workouts = workoutService.getWorkoutsByUsername(userDetails.getUsername());
        
-        // Print to console --- REMOVE AFTER TESTING ---
-        System.out.println("Workouts for user " + userDetails.getUsername() + ":");
-        workouts.forEach(System.out::println);
-        
-        // pass to view
+    	// filter workouts if query provided
+    	if (query != null && !query.isBlank()) {
+            String lowerQuery = query.toLowerCase();
+            workouts = workouts.stream()
+                .filter(w -> w.getName().toLowerCase().contains(lowerQuery)
+                          || w.getMuscleGroup().toLowerCase().contains(lowerQuery)
+                          || w.getNotes().toLowerCase().contains(lowerQuery)
+                          || w.getDate().toString().toLowerCase().contains(lowerQuery)
+                          || String.valueOf(w.getDuration()).contains(lowerQuery))
+                .toList();
+        }
+
+    	// add workouts and query to model
         model.addAttribute("workouts", workouts);
+        model.addAttribute("query", query);
         return "listWorkouts";
     }
     
