@@ -100,4 +100,39 @@ public class WorkoutController {
 		workoutService.deleteWorkoutById(id, userDetails.getUsername());
 		return "redirect:/workouts";
 	}
+    
+    /**
+     * Show edit form for workout
+     * @param id id of workout to edit
+     * @param userDetails Authenticated user details
+     * @param model Model to hold workout data
+     * @return edit workout view
+     */
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") int id,
+    						   @AuthenticationPrincipal UserDetails userDetails,
+							   Model model) {
+    	// get workout by id
+		Workout workout = workoutService.findById(id);
+		model.addAttribute("workout", workout);
+		return "editWorkout";
+	}
+    
+    /**
+     * Handle workout update submission
+     * @param id id of workout to update
+     * @param workout Updated workout data
+     * @param userDetails Authenticated user details
+     * @return redirect to workout list
+     */
+    @PostMapping("/edit/{id}")
+    public String updateWorkout(@PathVariable("id") int id,
+							 @ModelAttribute Workout workout,
+							 @AuthenticationPrincipal UserDetails userDetails) {
+		// ensure the workout being updated has the correct id
+		workout.setId(id);
+		// save updated workout
+		workoutService.saveWorkout(workout, userDetails.getUsername());
+		return "redirect:/workouts";
+    }
 }

@@ -60,18 +60,19 @@ public class WorkoutService {
      * @return list of workouts, empty if user not found
      */
     public List<Workout> getWorkoutsByUsername(String username) {
-        return userRepository.findByUsername(username)
-        		.map(user -> {
-        			// retrieve workouts for user
-                    List<Workout> workouts = workoutRepository.findByUser_UserIdOrderByDateDesc(user.getUserId());
-                    logger.info("Retrieved {} workouts for user '{}'", workouts.size(), username);
-                    return workouts;
-                })
-        		// return empty list if user not found
-                .orElseGet(() -> {
-                    logger.warn("User '{}' not found. Returning empty list", username);
-                    return List.of();
-                });
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        
+        // check if user exists
+        if(optionalUser.isEmpty()) {
+        	logger.warn("User '{}' not found, returning empty list", username);
+        	return List.of(); // return empty list if user not found
+        }
+        
+        // get workouts for user
+        User user = optionalUser.get();
+        List<Workout> workouts = workoutRepository.findByUser_UserIdOrderByDateDesc(user.getUserId());
+        logger.info("Retrieved {} workouts for user '{}'", workouts.size(), username);
+        return workouts;
     }
     
     /**
@@ -99,5 +100,19 @@ public class WorkoutService {
     		logger.error("Workout not found with ID: {}", workoutId);
     		throw new IllegalArgumentException("Workout not found with ID: " + workoutId);
     	}
+    }
+
+    /**
+     * Find workout by ID
+     * @param id id of workout
+     * @return workout if found
+     */
+    public Workout findById(int id) {
+        return workoutRepository.findById(id)
+            .orElseThrow(() -> {
+                logger.error("Workout not found with ID: {}", id);
+                // throw exception if workout not found
+                return new IllegalArgumentException("Workout not found with ID: " + id);
+            });
     }
 }

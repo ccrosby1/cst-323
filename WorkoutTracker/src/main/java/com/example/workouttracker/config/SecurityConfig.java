@@ -41,6 +41,7 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login") // custom login page
+                .failureUrl("/login?error") // redirect to login on failure
                 .defaultSuccessUrl("/home", true)// redirect to home on login
                 .permitAll()
             )

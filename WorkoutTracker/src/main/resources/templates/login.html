@@ -3,6 +3,12 @@
 	<body>
     	<div th:fragment="content">
         	<h2>Login</h2>
+			<div th:if="${param.error}">
+				<div class="alert alert-danger">Invalid username or password. Please try again</div>
+			</div>
+			<div th:if="${param.logout}">
+				<div class="alert alert-success">You have been successfully loggeed out.</div>
+			</div>
         	<form th:action="@{/login}" method="post">
             	<div><label>Username: <input type="text" name="username"/></label></div>
             	<div><label>Password: <input type="password" name="password"/></label></div>
