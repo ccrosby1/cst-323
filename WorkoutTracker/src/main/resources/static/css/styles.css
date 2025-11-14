@@ -1,0 +1,115 @@
+/* Theme Colors */
+:root {
+  --bg: #000000;               /* Main background color (black) */
+  --text: #ffffff;             /* Default text color (white) */
+  --accent: #39ff14;           /* Buttons and links (Neon green) */
+  --highlight: #00ffff;        /* Headings and glow effects (Cyan) */
+  --danger: #ff4d4d;           /* Delete and error actions (Brighht red) */
+  --card-bg: #1a1a1a;          /* Cards and containers (Dark gray) */
+  --input-bg: #2a2a2a;         /* Form inputs (Slightly lighter gray)*/
+  --border: #444;              /* Border color for inputs and cards */
+}
+
+/* ------ Base Styles ------ */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Headings and emphasis */
+h2, h5, h6 {
+  color: var(--highlight);
+}
+
+/* Links and interactive text */
+a, .btn-link {
+  color: var(--accent);
+}
+
+/* ------ Navbar ------ */
+.navbar {
+  background-color: var(--card-bg) !important;
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-brand, .nav-link, .navbar-text {
+  color: var(--text) !important;
+}
+
+.nav-link:hover {
+  color: var(--accent) !important;
+}
+
+/* ------ Containers and Cards ------ */
+.container, .card, .form-control, textarea {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.container {
+	padding: 2rem;
+	overflow: hidden; /* Prevent glow overflow */
+}
+
+.card {
+  box-shadow: 0 0 10px var(--highlight); /* Neon glow effect */
+}
+
+.card-footer {
+  background-color: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+/* ------ Form Inputs ------ */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="datetime-local"],
+textarea {
+  background-color: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+input:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent); /* Glow on focus */
+}
+
+/* ------ Buttons ------ */
+.btn-primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #000; /* High contrast text */
+}
+
+.btn-primary:hover {
+  background-color: var(--highlight);
+  border-color: var(--highlight);
+}
+
+.btn-outline-danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--danger);
+  color: #000;
+}
+
+/* ------ Alerts/Feedback ------ */
+.alert-danger {
+  background-color: #330000;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.alert-success {
+  background-color: #003300;
+  color: #00ff88;
+  border: 1px solid #00ff88;
+}

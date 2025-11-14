@@ -1,0 +1,38 @@
+<div th:fragment="form(actionUrl)">
+    <form th:action="${actionUrl}" th:object="${workout}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Workout Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" required>
+			<div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="date" class="form-label">Date & Time</label>
+            <input type="datetime-local" id="date" name="date"
+                   th:value="${#temporals.format(workout.date, 'yyyy-MM-dd')} + 'T' + ${#temporals.format(workout.date, 'HH:mm')}"
+                   class="form-control" required>
+			<div class="text-danger" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="duration" class="form-label">Duration (minutes)</label>
+            <input type="number" id="duration" th:field="*{duration}" class="form-control" required>
+			<div class="text-danger" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="muscleGroup" class="form-label">Muscle Group</label>
+            <input type="text" id="muscleGroup" th:field="*{muscleGroup}" class="form-control" required>
+			<div class="text-danger" th:if="${#fields.hasErrors('muscleGroup')}" th:errors="*{muscleGroup}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea id="notes" th:field="*{notes}" class="form-control" rows="3"></textarea>
+			<div class="text-danger" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Workout</button>
+        <a th:href="@{/workouts}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

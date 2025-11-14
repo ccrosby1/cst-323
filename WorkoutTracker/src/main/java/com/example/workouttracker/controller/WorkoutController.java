@@ -12,6 +12,8 @@ package com.example.workouttracker.controller;
 import com.example.workouttracker.model.Workout;
 import com.example.workouttracker.service.WorkoutService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -48,8 +51,15 @@ public class WorkoutController {
      * @return redirect to workout list
      */
     @PostMapping("/create")
-    public String submitWorkout(@ModelAttribute Workout workout,
-                                @AuthenticationPrincipal UserDetails userDetails) {
+    public String submitWorkout(@Valid @ModelAttribute Workout workout,
+    							BindingResult result,
+                                @AuthenticationPrincipal UserDetails userDetails,
+                                Model model) {
+    	// check for validation errors
+    	if (result.hasErrors()) {
+    		model.addAttribute("workout", workout);
+			return "createWorkout"; // return to form if errors
+    	}
         // save workout with associated user
     	workoutService.saveWorkout(workout, userDetails.getUsername());
         return "redirect:/workouts";
@@ -127,9 +137,18 @@ public class WorkoutController {
      */
     @PostMapping("/edit/{id}")
     public String updateWorkout(@PathVariable("id") int id,
-							 @ModelAttribute Workout workout,
-							 @AuthenticationPrincipal UserDetails userDetails) {
-		// ensure the workout being updated has the correct id
+							 @Valid @ModelAttribute Workout workout,
+							 BindingResult result,
+							 @AuthenticationPrincipal UserDetails userDetails,
+							 Model model) {
+		// check for validation errors
+    	if (result.hasErrors()) {
+    		workout.setId(id); // persist id for form
+    		model.addAttribute("workout", workout);
+    		return "editWorkout"; // return to form 
+    	}
+    	
+    	// ensure the workout being updated has the correct id
 		workout.setId(id);
 		// save updated workout
 		workoutService.saveWorkout(workout, userDetails.getUsername());

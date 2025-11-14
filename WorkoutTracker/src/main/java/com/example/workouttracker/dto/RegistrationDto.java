@@ -14,14 +14,14 @@ import jakarta.validation.constraints.NotBlank;
 
 public class RegistrationDto {
 
-    @NotBlank
+	@NotBlank(message = "Username is required")
     private String username;
 
-    @NotBlank
-    @Email
+	@NotBlank(message = "Email is required")
+	@Email(message = "Please enter a valid email address")
     private String email;
 
-    @NotBlank
+	@NotBlank(message = "Password is required")
     private String password;
 
     // ----------- Getters and Setters ----------- //

@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout}">
 	<body>
     	<div th:fragment="content">
-        	<h2>Welcome to Workout Tracker!</h2>
-			<p>
-				You're successfully logged in as <strong th:text="${#authentication.name}">User</strong>
-		    	<br/>
-				Use the navigation above to log new workouts and review your history.
-			</p>
+			<div class="text-center">
+        		<h2>Welcome to Workout Tracker!</h2>
+				<p>
+					You're successfully logged in as <strong th:text="${#authentication.name}">User</strong>
+		    		<br/> Use the navigation above to log new workouts and review your history.
+				</p>
+			</div>
     	</div>
 	</body>
 </html>
