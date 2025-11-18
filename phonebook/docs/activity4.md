@@ -15,7 +15,7 @@
 
  - [Screencast](https://www.loom.com/share/36e4696f4e004fafa8b66e035e8d8fa8) demonstrating the application running on AWS Elastic Beanstalk
  
-### 1. Create IAM Role for EC2
+### 1. Create IAM Role & EC2 Key Pair
 
  1. In the AWS Management Console, search for IAM Roles and create a new role
  
@@ -27,21 +27,21 @@
  
  - Details page of created Role 
  
-### 2. Create an EC2 Key Pair
-
- 1. Search for Key Pairs in the AWS console and create a new key pair named MyKeyPair
+ 4. Search for Key Pairs in the AWS console and select Key Pairs
  
- 2. Use: 
- 	
-    - ED25519 as the key type
- 	
- 	- .ppk as the file format
+ 5. Create a new key pair using: 
  
- 3. Download and save the key
+ 	- Name: MyKeyPair
+ 	
+    - Key type: ED25519
+ 	
+ 	- File format: .ppk
+ 
+ 6. Download and save the key
  
  ![Key setup](images/AWS-Key.png)
  
-  	- Newly created Key Pair 
+ - Newly created Key Pair 
  
 ### 3. Create the Elastic Beanstalk Application Environment
 
@@ -77,7 +77,7 @@
  
  ![Beanstalk setup](images/AWS-setup.png)
  
-    - Review of settings used to create Beanstalk instance
+ - Review of settings used to create Beanstalk instance
  
 ### 4. Configure the AWS RDS Database
 
@@ -97,15 +97,15 @@
  	
  ![RDS rules](images/AWS-Rules.png)
  
-    - inbound rules set for AWS RDS
+ - inbound rules set for AWS RDS
   
  4. Connect to the RDS MySQL instance using MySQL Workbench and the endpoint, username, and password from the RDS settings
  
  5. Run DDL script to create all required tables
 
-  ![RDS established](images/AWS-DB.png)
+ ![RDS established](images/AWS-DB.png)
   
-  	- DDL script imported to AWS RDS through MySQLWorkbench
+ - DDL script imported to AWS RDS through MySQLWorkbench
   
 ### 5. Configure Spring Boot App & Deploy to AWS
 
@@ -122,9 +122,9 @@
  
  2. Run a clean Maven build targeting Java 17
 
-  ![Maven output](images/AWS-Maven.png)
-  
-    - Console output of successful Maven build
+ ![Maven output](images/AWS-Maven.png)
+ 
+ - Console output of successful Maven build
   	
  3. In the Elastic Beanstalk environment, go to Configuration → Updates, Monitoring, and Logging and select Edit
  
@@ -139,14 +139,14 @@
  8. Deploy and wait for the health indicator to return to OK
   	 
  ![Beanstalk health](images/AWS-BS.png)
- 	
- 	- JAR file uploaded to AWS and Health reporting as 'OK' 
+ 
+ - JAR file uploaded to AWS and Health reporting as 'OK' 
  	
  9. From the dashboard, click the environment URL to confirm application loads
  
  ![Phonebook running](images/AWS-phonebook.png)
  
- 	- Test application successfully running on AWS
+ - Test application successfully running on AWS
  
 ---
 
