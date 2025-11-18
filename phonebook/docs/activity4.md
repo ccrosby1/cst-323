@@ -24,7 +24,8 @@
  3. Name the role EC2_Role and create it
      
  ![Role setup](images/AWS-Role.png)
- 	- Details page of created Role 
+ 
+ - Details page of created Role 
  
 ### 2. Create an EC2 Key Pair
 
