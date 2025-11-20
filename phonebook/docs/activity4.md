@@ -72,20 +72,20 @@
     - Set admin username and password
  	
     - Set deletion policy to Delete
- 	
- 5. Submit the environment creation and wait for AWS to provision
  
  ![Beanstalk setup](images/AWS-setup.png)
  
  - Review of settings used to create Beanstalk instance
  
+ 5. Submit the environment creation and wait for AWS to provision
+ 
 ### 4. Configure the AWS RDS Database
 
- 1. Open the RDS service and locate the generated MySQL instance.
+ 1. Open the RDS service and locate the generated MySQL instance
  
  2. Under Connectivity & Security:
  
-    - Public Accessibility = Yes
+    - Public Accessibility: Yes
     
     - Copy the Endpoint and Port
  
@@ -97,11 +97,11 @@
  	
  ![RDS rules](images/AWS-Rules.png)
  
- - inbound rules set for AWS RDS
+ - Inbound rules set for AWS RDS
   
  4. Connect to the RDS MySQL instance using MySQL Workbench and the endpoint, username, and password from the RDS settings
  
- 5. Run DDL script to create all required tables
+ 5. Run DDL script to create required table
 
  ![RDS established](images/AWS-DB.png)
   
@@ -126,23 +126,21 @@
  
  - Console output of successful Maven build
   	
- 3. In the Elastic Beanstalk environment, go to Configuration → Updates, Monitoring, and Logging and select Edit
+ 3. In the Elastic Beanstalk environment, go to Configuration, then under Updates, Monitoring, and Logging select Edit
  
  4. Update PORT environment variable to 8080
+  
+ 5. Go to the environment and click Upload and Deploy
  
- 5. Apply changes and wait for AWS to redeploy the environment
+ 6. Upload the JAR file generated during Maven build
  
- 6. Go to the environment and click Upload and Deploy
- 
- 7. Upload the JAR file generated during Maven build
- 
- 8. Deploy and wait for the health indicator to return to OK
+ 7. Deploy and wait for the health indicator to return to OK
   	 
  ![Beanstalk health](images/AWS-BS.png)
  
  - JAR file uploaded to AWS and Health reporting as 'OK' 
  	
- 9. From the dashboard, click the environment URL to confirm application loads
+ 8. From the dashboard, click the environment URL to confirm application loads
  
  ![Phonebook running](images/AWS-phonebook.png)
  
@@ -152,88 +150,171 @@
 
 ## Google Cloud Deployment
 
- - [Screencast](https) demonstrating the application running on Google Cloud
+ - [Screencast](https://www.loom.com/share/0b265981884b4a489f759dc1df3ba752) demonstrating the application running on Google Cloud App Engine
  
-### 1. step1
+### 1. Create Google Cloud Project & App Engine Application
 
- 1. Log
+ 1. In the Google Cloud Console, click the Select a Project dropdown at the top
  
- 2. Create
+ 2. Click the New Project icon
  
- 3. Configure
-    
-    - Set
- 	
-    - Leave
- 	
-    - Enable
+ 3. Enter a project name (cst323activity) and click Create
  
- 4. Confirm 
+ 4. From the main menu, select App Engine then Services 
  
- ![image](images/placeholder)
+ 5. On the “Welcome to App Engine” screen, click Create Application
  
-  - Screenshot of 
+ 6. Choose a US region and set Java for Language and Flexible for Environment
  
-### 2. step2
+### 2. Create Cloud SQL MySQL Database
 
- 1. Navigate
+ 1. From the main menu, search SQL and choose Create Instance
  
- 2. Connect
+ 2. Choose MySQL, Enable API, and set Enterprise option to Sandbox
  
- 3. Execute
+ 3. Fill out:
  
- 
-### 3. step3
+ 	- Instance ID
 
- 1. Update
+ 	- Root password
 
- 2. Ensure
- 
- 3. Build
- 
- ![image](images/placeholder)
- 
-### 4. step4
+ 	- MySQL version: 8.0
 
- 1. Create
+ 	- Region: US
+
+ 4. Expand Show Configuration Options:
  
-   ![image](images/placeholder)
-       
-       - Screenshot of
+ 	- Machine configuration: Shared core, smallest CPU
+
+ 	- Storage: HDD, smallest capacity
+
+ 	- Connections: Enable Public IP
+
+ 	- Data Protection: Disable all except “Enable Data Protection”
  
- 2. Use
+ 5. Click Create Instance and in the Connections panel, note the Public IP Address
  
- 3. Upload
+ ![Database](images/GCP-DB.png)
   
-  ![image](images/placeholder)
-  
-  - texthere
-  
-### 5. step5
+ - New database added to Cloud SQL
+ 
+ 6. From the left pane, select Users, then Add User Account
+ 
+ 	- Username: user
 
- 1. Open
+ 	- Host: Allow any host
+
+ 	- Click Add
+	 
+ ![New users](images/GCP-Users.png)
+  
+ - New database user added
+  
+ 7. Select Databases and Create Database
  
- 2. Confirm
+ 	- Name: cst323activity
+
+ 	- Click Create
  
- ![image](images/placeholder)
+ 8. In Connections - Networking, under Authorized Networks, add IP address
+ 
+ 9. Connect to the database in MySQL Workbench using the IP, username, and password
+ 
+ 10. Run your DDL script to create required tables
+ 
+ 11. Go to APIs & Services then Library and enable Cloud SQL and Cloud SQL Admin API
+ 
+ ![Cloud SQL](images/GCP-API.png)
+  
+ - Confirming Cloud SQL enabled on database
+ 
+ ![Cloud SQL Admin API](images/GCP-API2.png)
+  
+ - Confirming Cloud SQL Admin API enabled on database
+ 
+### 3. Configure Spring Boot App
+
+ 1. Open Cloud Shell
+
+ 2. Create a working directory and clone repo:
+ 
+ 	- git clone https://github.com/ccrosby1/cst-323.git
  	
- 	- Test 
+ 	- cd cst-323/phonebook
+ 
+ 3. Open the editor and update the POM file:
+ 
+ 	- Set Java version to 17
+ 	
+ 	- Add Google Cloud dependencies
+ 	
+ 	- Add App Engine Maven plugin
+ 	
+ 4. Create a new directory src/main/appengine and file app.yaml:
+ 
+ 	- Set runtime variable to java17
+ 
+ 5. Update application.properties with Cloud SQL connection:
+ 
+ ```properties
+ spring.application.name=phonebook
+ spring.datasource.url=jdbc:mysql://google/cst323activity?socketFactory=com.google.cloud.sql.mysql.SocketFactory&cloudSqlInstance=cst323activity-478702:us-central1:cst323activity
+ spring.datasource.username=user
+ spring.datasource.password=Password!1
+ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+ ```
+ 
+### 4. Test Locally in Cloud Shell
+
+ 1. Build the app:
+ 
+    - mvn -DskipTests clean package
+ 
+ 2. Run the JAR:
+ 
+ 	- cd target
+ 	
+ 	- java -jar phonebook-0.0.1-SNAPSHOT.jar
+ 
+ 3. Click Web Preview, select Port 8080 to test locally
+  
+ ![Local test](images/GCP-Test.png)
+  
+ - Testing application on local URL
+  
+### 5. Deploy to App Engine & Verify
+
+ 1. From the project root, run:
+ 
+ 	- gcloud app deploy target/phonebook-0.0.1-SNAPSHOT.jar
+ 
+ 2. Confirm deployment when prompted
+ 
+ ![Console output](images/GCP-Shell.png)
+  
+ - Console output on successful deployment
+ 
+ 3. After deployment, return to App Engine / Dashboard and launch application
+ 
+ ![App](images/GCP-Phonebook.png)
+  
+ - Application successfully hosted on Google Cloud 
  
 ---
 
 ### Challenges Encountered
  
- 1. Static
+ 1. Local MySQL 8 Upgrade & Service Configuration Issues
  
-    - CSS
+    - Upgrading to MySQL 8 required manual configuration because the installer failed to properly register and start the service. Manually setting up the Windows service resolved the connection errors.
      
- 2. Server
+ 2. First JAR Deployment Would Not Serve
  
-    - Using
+    - The first JAR uploaded to Elastic Beanstalk only showed the default landing page instead of running the Spring Boot app. Rebuilding the project with a clean Maven build produced a working JAR.
  
- 3. web
+ 3. App Engine Deployment Hang at Staging Step
  
-    - Initial
+    - When deploying to GCP using the Maven plugin, the process repeatedly stalled after staging the application and detecting the app.yaml. Switching to the gcloud app deploy CLI command resolved the issue and allowed the deployment to complete successfully.
  
 ---
 
@@ -256,21 +337,21 @@
  5. Poor
     - Failing
  	
-### B. AWS vs Google Cloud
+### B. AWS vs GCP
 
 
- |Feature|AWS|Google Cloud|
+ |Feature|AWS|GCP|
  |--|--|--|
- |||
- |||
- |||
- |||
- |||
- |||
- |||
- |||
- |||
- |||
+ |Virtual Machines|EC2 instances are highly customizable for performance and pricing|VM customization through Compute Engine with option of per-second billing|
+ |Serverless Computing|Run event-driven functions with AWS Lambda. Integrates with the rest of AWS services|Simple, scalable serverless deployment with Cloud Functions|
+ |Object Storage|S3 buckets used for durable storage persisted across multiple zones|Object storage through Cloud Storage. Also with multi-zone persistence|
+ |Block Storage|Block storage through EBS and EFS designed to work efficiently with EC2 instances|Persistent Disk and Filestore provided Compute Engine optimized storage|
+ |Database|AWS RDS for various SQL databases and DynamoDB for NoSQL|Cloud SQL for managed SQL and Bigtable for NoSQL|
+ |Networking|VPC and Elastic Load Balancer for secure networking|VPC and Cloud Load Balancing provide similar services|
+ |IAM|Allows granular control over access through role-based permissions|Similar model with policies to dictate access and integration with google identities|
+ |Monitoring|Detailed logging and metric from CloudWatch and CloudTrail|Simplified, and unified dashboard with data from Cloud Monitoring and Logging|
+ |Pricing|Pay-as-you-go pricing with options for reserved instances and spot instances|Similar structure, but includes per-second billing and sustained use discounts|
+ |Free Tier|6-months of limited free services with up to $200 in credit|$300 of free credits for the first 90 days|
 
 ### C. Cloud Limitations
 
