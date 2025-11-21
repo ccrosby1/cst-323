@@ -7,7 +7,7 @@
 
 ## Introduction
 
-- This activity will
+- This activity covers deploying a test application to both Amazon Web Services (AWS) and Google Cloud Platform (GCP). It will demonstrate how to configure cloud environments, connect a MySQL database, and deploy the application.
  
 ---
 
@@ -216,13 +216,13 @@
 
  	- Click Create
  
- 8. In Connections - Networking, under Authorized Networks, add IP address
+ 8. In Connections / Networking, under Authorized Networks, add IP address
  
  9. Connect to the database in MySQL Workbench using the IP, username, and password
  
  10. Run your DDL script to create required tables
  
- 11. Go to APIs & Services then Library and enable Cloud SQL and Cloud SQL Admin API
+ 11. Go to APIs & Services / Library and enable Cloud SQL and Cloud SQL Admin API
  
  ![Cloud SQL](images/GCP-API.png)
   
@@ -314,7 +314,7 @@
  
  3. App Engine Deployment Hang at Staging Step
  
-    - When deploying to GCP using the Maven plugin, the process repeatedly stalled after staging the application and detecting the app.yaml. Switching to the gcloud app deploy CLI command resolved the issue and allowed the deployment to complete successfully.
+    - When deploying to GCP using the Maven plugin, the process repeatedly stalled after staging the application and detecting the app.yaml. Switching to the gcloud app deploy CLI command allowed the deployment to complete.
  
 ---
 
@@ -322,20 +322,20 @@
 
 ### A. REST API
 
- 1. Migrating
-    - Beginning 
+ 1. Rate Limits
+    - What are the API’s usage limits (requests per second/hour) and how does throttling work?
 
- 2. Ignoring
-    - Forgetting
+ 2. Data Privacy 
+    - How does the API handle sensitive user data, and is it compliant with applicable regulations?
  	
- 3. Failure
-    - Moving
+ 3. Authentication 
+    - What security mechanisms are in place (e.g., OAuth, API keys, JWT tokens), and how are access levels controlled?
  	
- 4. Neglecting 
-    - Overlooking
+ 4. Reliability  
+    - What is the expected uptime or SLA for the API, and how are outages or errors communicated?
  	
- 5. Poor
-    - Failing
+ 5. Encryption 
+    - Are data transmissions encrypted (e.g. HTTPS), and are any sensitive fields encrypted at rest? 
  	
 ### B. AWS vs GCP
 
@@ -355,8 +355,10 @@
 
 ### C. Cloud Limitations
 
+ - Performance issues can be a problem when migrating to the cloud, as applications requiring real-time processing or consistently low latency may struggle in a distributed environments. Networking bottlenecks can be another complication for migration, especially when connecting on-premises systems to cloud resources or handling high volumes of traffic across multiple regions. Another concern is infrastructure compatibility, applications built on legacy systems or proprietary software may require reconfiguration before they can work effectively in the cloud. Lastly, data migration hurdles can slow down or complicate the process. Large datasets, fragmented storage, or strict regulatory requirements can all limit where and how data can be transferred and stored.
+
 --- 
 
 ## Conclusion
 
- - The test application was successfully deployed to Microsoft Azure, along with it's MySQL database. Setup required troubleshooting of issues such as static resource rendering, port configuration, an Azure region exclusions.
+ - The application was successfully deployed on both AWS and GCP, with databases configured and accessible for testing. Challenges such as deployment delays, service configuration issues, and platform-specific quirks were encountered and resolved.
