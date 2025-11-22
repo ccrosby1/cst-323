@@ -9,6 +9,7 @@
  */
 package com.example.workouttracker.config;
 
+
 import com.example.workouttracker.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Configuration
 @EnableWebSecurity
@@ -78,8 +81,10 @@ public class SecurityConfig {
      * Password encoder bean
      * @return PasswordEncoder
      */
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // Plain text, not for production!
+        return new BCryptPasswordEncoder();
     }
 }
