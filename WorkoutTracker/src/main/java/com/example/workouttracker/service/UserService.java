@@ -15,6 +15,7 @@ import com.example.workouttracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,41 +25,37 @@ import java.util.Collections;
 @Service
 public class UserService implements UserDetailsService {
 
-	// Logger for debugging/monitoring
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    // Inject UserRepository
     @Autowired
     private UserRepository userRepository;
 
+    // Inject BCryptPasswordEncoder from SecurityConfig
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
-     * Load user by username for authentication
-     * @param username username to lookup
-     * @return UserDeatails object for authentication
+     * Load a user by username for authentication
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // lookup user in database
         User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> {
-                logger.warn("User not found: {}", username);
-                return new UsernameNotFoundException("User not found");
-            });
+                .orElseThrow(() -> {
+                    logger.warn("User not found: {}", username);
+                    return new UsernameNotFoundException("User not found");
+                });
 
-        logger.info("User found: {} (ID: {})", user.getUsername(), user.getUserId());
+        logger.info("User authenticated: {} (ID: {})", user.getUsername(), user.getUserId());
 
-        // return UserDetails object
         return new org.springframework.security.core.userdetails.User(
-            user.getUsername(),
-            user.getPassword(),
-            Collections.singleton(new SimpleGrantedAuthority("USER"))
+                user.getUsername(),
+                user.getPassword(),
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
         );
     }
-    
+
     /**
      * Check if username is taken
-     * @param username username to check
-     * @return true if taken, false otherwise
      */
     public boolean isUsernameTaken(String username) {
         return userRepository.findByUsername(username).isPresent();
@@ -66,27 +63,27 @@ public class UserService implements UserDetailsService {
 
     /**
      * Check if email is taken
-     * @param email email to check
-     * @return true if taken, false otherwise
      */
     public boolean isEmailTaken(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 
     /**
-     * Register new user
-     * @param dto registration data
+     * Register new user with BCrypt hashing
      */
     public void registerNewUser(RegistrationDto dto) {
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword()); // USE ENCODING IN PRODUCTION
+
+        // hash password before saving
+        String hashedPassword = passwordEncoder.encode(dto.getPassword());
+        user.setPassword(hashedPassword);
 
         try {
-            userRepository.save(user); // save new user
-            logger.info("Registered new user: {}", user.getUsername());
-        } catch (Exception e) { // handle save errors
+            userRepository.save(user);
+            logger.info("Successfully registered new user: {}", user.getUsername());
+        } catch (Exception e) {
             logger.error("Failed to register user '{}': {}", user.getUsername(), e.getMessage());
             throw e;
         }
