@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
+    /***
      * Load a user by username for authentication
      */
     @Override
@@ -54,22 +54,27 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    /**
-     * Check if username is taken
-     */
+    /***
+	 * Check if username is taken
+	 * @param username username to check
+	 * @return true if username is taken, false otherwise
+	 */
     public boolean isUsernameTaken(String username) {
         return userRepository.findByUsername(username).isPresent();
     }
 
-    /**
+    /***
      * Check if email is taken
+     * @param email email to check
+     * @return true if email is taken, false otherwise
      */
     public boolean isEmailTaken(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    /**
+    /***
      * Register new user with BCrypt hashing
+     * @param dto registration data transfer object
      */
     public void registerNewUser(RegistrationDto dto) {
         User user = new User();

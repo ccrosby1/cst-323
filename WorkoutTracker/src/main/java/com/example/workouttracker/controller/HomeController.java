@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-	
+		
 	/**
 	 * Handles request to the home page
 	 * @return name of home view

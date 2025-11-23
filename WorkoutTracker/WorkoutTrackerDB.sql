@@ -20,14 +20,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(75) NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `id_UNIQUE` (`user_id` ASC))
 ENGINE = InnoDB;
 
 -- Insert default admin user
 INSERT INTO `users` (`username`, `email`, `password`)
-VALUES ('admin', 'admin@test.com', 'admin');
+VALUES ('admin', 'admin@test.com', '$2a$10$OL833ppmDUb/pvOu5DYGS.ZX88511x/l6JDobzNLi9zXMyfwqh.Re');
 
 USE `workouttracker` ;
 
