@@ -7,13 +7,15 @@
 
 ## Introduction
 
-- This activity covers 
+- This activity explores containerization and orchestration through hands-on exercises with Docker and Kubernetes. The exercises provide experience building Docker images, running containers, managing container lifecycles, and understanding the abstractions that enable scalable, reproducible deployments. 
  
 ---
 
 ## Docker
 
 ### 1. Docker for Beginners – Linux 
+
+ - This tutorial introduced Docker installation and basic usage on a Linux environment. It covered creating and running containers from prebuilt images, understanding image layers, and exploring the DockerHub registry.
 
  ![End of tutorial](images/Docker-linux1.png)
  
@@ -25,17 +27,23 @@
  
 ### 2. Doing More With Docker Images 
 
+ - This section covered how to create Dockerfiles, tag and version images, and pull images from DockerHub. The focus was on manipulating images efficiently, inspecting layers, and running containers.
+
  ![End of tutorial](images/Docker-images.png)
  
  - End of Second tutorial, including instructions and terminal
  
 ### 3. First Alpine Linux Containers
 
+ - This tutorial demonstrated launching Alpine Linux containers and installing packages inside them. It focused on the lightweight nature of Alpine and taught how to start, stop, navigate, and remove containers.
+
  ![End of tutorial](images/Docker-alpine.png)
  
  - End of third tutorial, including instructions and terminal
   
 ### 4. Docker Images Deeper Dive
+
+ - This section explored more Dockerfile instructions, caching mechanisms, and multi-layer builds. The tutorial focused on running and managing multiple containers simultaneously. 
 
  ![End of tutorial](images/Docker-image2.png)
  
@@ -165,7 +173,9 @@
     
  2. Draw a business architecture diagram for your milestone project.
  
-    - 
+ ![Business Architecture Diagram](images/BA-Diagram.png)
+ 
+ - The business architecture of the Workout Tracker project follows a three‑tier design. Users interact with the presentation layer built with Thymeleaf and Bootstrap, which handles forms, navigation, and views. Controllers and services in the business logic layer process requests, enforce validation, and manage workout operations. Finally, the data layer persists user and workout information in a MySQL 8 database through JPA repositories, ensuring secure storage and retrieval.
  
  3. Identify the business and technical requirements for your milestone project.
     
@@ -227,4 +237,4 @@
 
 ## Conclusion
 
- - The application was 
+ - This activity provided an in-depth introduction to Docker and Kubernetes, focusing on the workflow from building container images to running and orchestrating containers. The exercises demonstrated the importance of containerization for reproducibility, scalability, and efficient application management. 
