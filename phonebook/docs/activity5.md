@@ -157,27 +157,65 @@
 
 ## Cloud Computing Research
 
- 1. Read the assigned textbook required readings for this topic. Provide the following research:
+ 1. Define the business problem statement for your milestone project.
  
-    - Define the business problem statement for your milestone project.
+    - Problem: Users need a simple, intuitive, and reliable way to log workouts, view history, and manage fitness goals in one place, with clear feedback and error handling, while ensuring secure authentication and data persistence.
     
-    - Draw a business architecture diagram for your milestone project
+    - Statement: Many fitness enthusiasts struggle to consistently track their workouts, monitor progress, and maintain motivation. Existing solutions are often either too complex or too simplistic.
     
-    - Identify the business and technical requirements for your milestone project.
+ 2. Draw a business architecture diagram for your milestone project.
+ 
+    - 
+ 
+ 3. Identify the business and technical requirements for your milestone project.
+    
+    - Business Requirements: 
+    
+    	- Users must be able to register and log in securely.
 
- 2. Describe three elements that can be defined in a DockerFile. Provide a brief description for each and discuss what the elements are used for. (DQ1) 
+		- Users can create, edit, delete, and view workouts.
+
+		- The system must provide error handling and validation (e.g., required fields, duplicate usernames).
+
+		- The app should have a clean and intuitive UI .
+
+		- Users should be able to search and filter workouts.
+
+		- The app must support progress tracking (view history).
+		
+	- Technical Requirements
+	
+		- Frontend: Thymeleaf templates with Bootstrap styling.
+
+		- Backend: Spring Boot with MVC architecture.
+
+		- Database: MySQL 8 for persistence.
+
+		- Validation: Jakarta Bean Validation (@NotBlank, @Email, @Min, etc.).
+
+		- Authentication: Spring Security for login/logout.
+
+		- Error Handling: BindingResult + Thymeleaf error messages.
+
+		- Deployment: Runs locally with MAMP/MySQL or on a cloud platform.
+
+		- Scalability: Modular design with fragments for reusable views (navbar, workout form).
+
+ 4. Describe three elements that can be defined in a DockerFile. Provide a brief description for each and discuss what the elements are used for. (DQ1) 
  
     - Three Dockerfile elements are RUN, WORKDIR, and CMD. RUN executes commands during the image build process and creates new layers. It supports shell and exec forms, and its results are cached unless intentionally invalidated. WORKDIR sets the working directory for any following instructions and automatically creates the directory if it doesn’t exist. It can be defined multiple times, supports relative paths, and can resolve Dockerfile environment variables. CMD defines the default command or parameters that run when the container starts and only the final CMD instruction is applied. It can be written in shell or exec form and often works alongside ENTRYPOINT to provide default arguments that users can override.
  	
- 3. Research the concepts of high availability (HA), failover, and the number of nines. What is HA, failover, and the number of nines? How does the number of nines help solve HA and failover? (DQ2) 
+ 5. Research the concepts of high availability (HA), failover, and the number of nines. What is HA, failover, and the number of nines? How does the number of nines help solve HA and failover? (DQ2) 
  
-    - What
+    - The concept of High Availability (HA) is the practice of designing systems to remain operational nearly all the time by using redundancy like backup servers, replicated databases, or duplicated services. The intention is that the system can continue functioning even if individual components fail. Failover is the process that switches workloads or traffic from a failing system to a healthy backup, keeping services running with minimal user disruption. This happens in automatically and in conjunction with HA to provide consistent reliability. The “number of nines” expresses uptime targets as percentages, with 4 nines equating to 99.99%, and defines how much downtime is acceptable per year. This helps define HA requirements and failover strategies by setting a reliability goal; the more nines required, the less downtime allowed.
  
 --- 
 
 ## References
 
  - Dockerfile reference. (2024). Docker Documentation. https://docs.docker.com/reference/dockerfile
+ 
+ - Four nines and beyond: A guide to high availability infrastructure. (2018, June 21). Work Life by Atlassian. https://www.atlassian.com/blog/statuspage/high-availability
  
  - Kavis, M. J. (2014). Architecting the cloud: Design decisions for cloud computing service models (SaaS, PaaS, and IaaS). Wiley. ISBN-13: 9781118617618
  
@@ -189,4 +227,4 @@
 
 ## Conclusion
 
- - The application was successfully deployed on both AWS and GCP, with databases configured and accessible for testing. Challenges such as deployment delays, service configuration issues, and platform-specific quirks were encountered and resolved.
+ - The application was 
