@@ -62,6 +62,10 @@ a, .btn-link {
   border-top: 1px solid var(--border);
 }
 
+.card-subtitle {
+  color: var(--highlight) !important;
+}
+
 /* ------ Form Inputs ------ */
 input[type="text"],
 input[type="email"],
