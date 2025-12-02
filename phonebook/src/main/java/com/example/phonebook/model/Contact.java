@@ -105,4 +105,11 @@ public class Contact {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	// -------- toString() Method -------- //
+	@Override
+	public String toString() {
+	    return String.format("Contact[id=%d, firstName='%s', lastName='%s', email='%s']", 
+	                          id, firstName, lastName, email);
+	}
 }
