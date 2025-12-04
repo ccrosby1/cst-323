@@ -1,0 +1,10 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - cd phonebook
+      - mvn clean install -DskipTests
+artifacts:
+  files:
+    - phonebook/target/*.jar
+  discard-paths: yes
