@@ -77,21 +77,23 @@
  
 ### 3. DevOps CI/CD Integration
 
- 1. [Sceencast](www.google.com) of automadted build and deployment to AWS
+ 1. AWS CodePipeline was used since the app is on AWS Beanstalk
 
- 2. What roles does Maven play when supporting CI/CD?
+ 2. [Sceencast](www.google.com) of automated build and deployment to AWS. 
+
+ 3. What roles does Maven play when supporting CI/CD?
  
     - Maven manages dependencies, builds artifacts, and standardizes project structure, ensuring consistent builds across environments.
  
- 3. What role does a Source Control System play when supporting CI/CD?
+ 4. What role does a Source Control System play when supporting CI/CD?
   
     - Source control (e.g., Git) tracks code changes, supports collaboration, and triggers pipelines when new commits are pushed.
  
- 4. How did your chosen build pipeline tool support CI/CD?
+ 5. How did your chosen build pipeline tool support CI/CD?
   
     - AWS CodePipeline automated the build, test, and deployment stages, reducing manual effort and ensuring consistency.
  
- 5. Besides build and deployment, what are three other features that could be integrated into a build pipeline to support a robust CI/CD?
+ 6. Besides build and deployment, what are three other features that could be integrated into a build pipeline to support a robust CI/CD?
  
     - Automated testing suites - 
      
