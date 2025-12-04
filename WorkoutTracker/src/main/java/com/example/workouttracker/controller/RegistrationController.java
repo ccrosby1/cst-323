@@ -17,10 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class RegistrationController {
 
+	// Logger for RegistrationController 
+	private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
+		
 	// Inject UserService
     @Autowired
     private UserService userService;

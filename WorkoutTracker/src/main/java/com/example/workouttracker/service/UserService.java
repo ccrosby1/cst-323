@@ -39,7 +39,8 @@ public class UserService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+    	logger.debug("Loading user by username '{}'", username);
+    	User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> {
                     logger.warn("User not found: {}", username);
                     return new UsernameNotFoundException("User not found");
@@ -60,6 +61,7 @@ public class UserService implements UserDetailsService {
 	 * @return true if username is taken, false otherwise
 	 */
     public boolean isUsernameTaken(String username) {
+    	logger.debug("Checking if username '{}' is taken", username);
         return userRepository.findByUsername(username).isPresent();
     }
 
@@ -69,6 +71,7 @@ public class UserService implements UserDetailsService {
      * @return true if email is taken, false otherwise
      */
     public boolean isEmailTaken(String email) {
+    	logger.debug("Checking if email '{}' is taken", email);
         return userRepository.findByEmail(email).isPresent();
     }
 
@@ -86,6 +89,7 @@ public class UserService implements UserDetailsService {
         user.setPassword(hashedPassword);
 
         try {
+        	logger.debug("Registering new user with username '{}' and email '{}'", dto.getUsername(), dto.getEmail());
             userRepository.save(user);
             logger.info("Successfully registered new user: {}", user.getUsername());
         } catch (Exception e) {

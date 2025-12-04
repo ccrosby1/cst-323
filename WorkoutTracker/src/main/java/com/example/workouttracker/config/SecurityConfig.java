@@ -17,16 +17,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+	// Logger for security config
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+	
 	/**
 	 * Configure security filter chain
 	 * @param http HttpSecurity
@@ -35,6 +39,7 @@ public class SecurityConfig {
 	 */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    	logger.info("Configuring SecurityFilterChain...");
         http
             .authorizeHttpRequests(auth -> auth
             	// allow public access to login, registration, and static resources
@@ -52,7 +57,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")// redirect to login on logout
                 .permitAll()
             );
-
+        logger.debug("SecurityFilterChain configured successfully");
         return http.build();
     }
 
@@ -70,6 +75,8 @@ public class SecurityConfig {
             UserService userService,
             PasswordEncoder passwordEncoder) throws Exception {
 
+        logger.info("Building AuthenticationManager with custom UserService and PasswordEncoder");
+        
         return http.getSharedObject(AuthenticationManagerBuilder.class)
             .userDetailsService(userService)
             .passwordEncoder(passwordEncoder)
@@ -83,6 +90,7 @@ public class SecurityConfig {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
+    	logger.info("Initializing BCryptPasswordEncoder");
         return new BCryptPasswordEncoder();
     }
 }

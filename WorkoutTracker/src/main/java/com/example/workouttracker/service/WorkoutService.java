@@ -46,6 +46,7 @@ public class WorkoutService {
         // check if user exists
         if (optionalUser.isPresent()) {
             workout.setUser(optionalUser.get()); // link workout to user
+            logger.debug("Attempting to save workout '{}' for user '{}'", workout, username);
             workoutRepository.save(workout); // save workout
             logger.info("Saved workout '{}' for user '{}'", workout, username);
         } else {
@@ -70,6 +71,7 @@ public class WorkoutService {
         
         // get workouts for user
         User user = optionalUser.get();
+        logger.debug("Fetching workouts for user '{}'", username);
         List<Workout> workouts = workoutRepository.findByUser_UserIdOrderByDateDesc(user.getUserId());
         logger.info("Retrieved {} workouts for user '{}'", workouts.size(), username);
         return workouts;
@@ -88,6 +90,7 @@ public class WorkoutService {
     		Workout workout = optionalWorkout.get();
     		// verify workout belongs to user
     		if(workout.getUser().getUsername().equals(username)) {
+    			logger.debug("Attempting to delete workout '{}' for user '{}'", workoutId, username);
     			workoutRepository.deleteById(workoutId);
     			logger.info("Deleted workout '{}' by user '{}'", workoutId, username);
     		} else {
@@ -108,6 +111,7 @@ public class WorkoutService {
      * @return workout if found
      */
     public Workout findById(int id) {
+    	logger.debug("Looking up workout by ID: {}", id);
         return workoutRepository.findById(id)
             .orElseThrow(() -> {
                 logger.error("Workout not found with ID: {}", id);

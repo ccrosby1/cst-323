@@ -23,10 +23,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/workouts")
 public class WorkoutController {
+	
+	// Logger for WorkoutController
+	private static final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
 
 	// DI for WorkouService
     @Autowired
