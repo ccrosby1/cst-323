@@ -7,7 +7,7 @@ phases:
       # - mvn clean install -DskipTests
 
       # WorkoutTracker build commands
-      - cd workouttracker
+      - cd WorkoutTracker
       - mvn clean install -DskipTests
 
 artifacts:
@@ -16,5 +16,5 @@ artifacts:
     # - phonebook/target/*.jar
 
     # WorkoutTracker artifact
-    - workouttracker/target/*.jar
+    - WorkoutTracker/target/*.jar
   discard-paths: yes
