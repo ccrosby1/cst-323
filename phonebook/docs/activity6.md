@@ -83,7 +83,7 @@
  
  - Initial configuration of AWS CodePipeline, showing the Source, Build, and Deploy stages before confirmation
  
- ![Finished Pipeline](images/AWS-pipe2.png)
+ ![Finished Pipeline](images/AWS-Pipe2.png)
  
  - A successful pipeline execution with all stages marked complete
  
