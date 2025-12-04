@@ -7,7 +7,7 @@
 
 ## Introduction
 
-- This activity  
+- This activity will cover DevOps practices focusing on logging, monitoring, and continuous integration/continuous deployment (CI/CD). The goal is to demonstrate how DevOps principles support automation, reliability, and scalability in modern application delivery. 
  
 ---
 
@@ -21,7 +21,7 @@
  
  - Captured and examined the latest entries from the web.stdout.log file to validate that logging output is functioning as expected
  
- - I was never able to get in touch with the proper Heroku support to create my student account. I deployed to GCP as a secondary 
+ - I attempted to contact Heroku support to assist with creating my student account, but was unable to reach the appropriate support team
  
  B. DevOps Logging Questions
 
@@ -77,29 +77,54 @@
  
 ### 3. DevOps CI/CD Integration
 
- 1. AWS CodePipeline was used since the app is on AWS Beanstalk
-
- 2. [Sceencast](www.google.com) of automated build and deployment to AWS. 
+ 1. AWS CodePipeline was chosen because it's the AWS product designed to integrate with Elastic Beanstalk. CodePipeline provides a fully managed CI/CD service that automates the flow from source-build-deploy, ensuring that every commit pushed to GitHub is automatically compiled with Maven and deployed to the Beanstalk environment.
+ 
+ ![Pipeline setup](images/AWS-pipe.png)
+ 
+ - Initial configuration of AWS CodePipeline, showing the Source, Build, and Deploy stages before confirmation
+ 
+ ![Finished Pipeline](images/AWS-pipe2.png)
+ 
+ - A successful pipeline execution with all stages marked complete
+ 
+ ```yml
+ version: 0.2
+phases:
+  build:
+    commands:
+      - cd phonebook
+      - mvn clean install -DskipTests
+artifacts:
+  files:
+    - phonebook/target/*.jar
+  discard-paths: yes
+ ```
+ 
+ - The buildspec.yml file used by CodeBuild defines the build commands to compile the application with Maven and specifies the artifact path so the .jar file is packaged correctly for deployment to Elastic Beanstalk
+    
+ 2. A [sceencast](https://www.loom.com/share/d736fbf1775c47cdbe9216e27156fac1) to demonstrate the automated workflow. 
+ 
+    - This video shows the process of committing code in STS4, pushing to GitHub, and watching CodePipeline automatically detect the change, build the .jar, and redeploy the updated application to Elastic Beanstalk.
 
  3. What roles does Maven play when supporting CI/CD?
  
-    - Maven manages dependencies, builds artifacts, and standardizes project structure, ensuring consistent builds across environments.
+    - Maven manages project dependencies, compiles source code, and packages the application into a deployable .jar. By standardizing project structure and build commands, Maven allows CodeBuild to replicate the same process developers use locally, reducing errors and ensuring reliable deployments.
  
  4. What role does a Source Control System play when supporting CI/CD?
   
-    - Source control (e.g., Git) tracks code changes, supports collaboration, and triggers pipelines when new commits are pushed.
+    - Source control systems such as Git allow for tracking code changes, enabling collaboration among developers, and maintaining version history. They act as the trigger for pipelines: every commit or push to the repository initiates a new build and deployment cycle.
  
  5. How did your chosen build pipeline tool support CI/CD?
   
-    - AWS CodePipeline automated the build, test, and deployment stages, reducing manual effort and ensuring consistency.
+    - AWS CodePipeline automated the entire workflow by linking source, build, and deploy stages into a single managed process. It eliminated manual deployment steps, ensured consistency across builds, and provided visibility into each stage of the pipeline. By integrating GitHub, CodeBuild, and Elastic Beanstalk, CodePipeline automatically compiled, packaged, and deployed to the application environment.
  
  6. Besides build and deployment, what are three other features that could be integrated into a build pipeline to support a robust CI/CD?
  
-    - Automated testing suites - 
+    - Automated testing suites - Run unit and integration tests during the build stage to catch errors early, while also validating functionality before deployment
      
-    - Security scans - 
+    - Security scans - Integrate static code analysis and vulnerability scanning tools to detect insecure dependencies, ensuring compliance with security standards
      
-    - Deployment rollbacks - 
+    - Deployment rollbacks - Enable automatic rollback to the last stable version if a deployment fails, minimizing downtime and preserving application stability
  
 ---
 
@@ -111,7 +136,7 @@
     
  B. Read the assigned textbook required readings for this topic. What data information is relevant and should be provided in a log file to support your application in the cloud? Provide three best practices that you should adhere to when adding logging to an application. Provide three issues or risks that could occur if inadequate logging is designed into an application.
   
-   - The
+   - Relevant information that should be included in a cloud application log file are timestamps, severity levels, user or service identifiers, and contextual request details such as endpoints accessed and resource usage. Best practices for logging include using structured formats like JSON for easy parsing, avoiding sensitive data such as passwords or personal identifiers, and balancing verbosity to capture meaningful events without overwhelming storage or analysis tools. Inadequate logging can lead to difficulty troubleshooting failures, reduced visibility into security incidents that may go undetected, and inconsistent or noisy data that hinders monitoring and alerting.
  
  C. Research three tools that could support a CI/CD build pipeline. What are the tools and how are they used to support CI/CD?
     
@@ -135,4 +160,4 @@
 
 ## Conclusion
 
- - This activity 
+ - The activity explored DevOps logging integration, monitoring with CloudWatch and UptimeRobot, and CI/CD automation through AWS CodePipeline. Key concepts such as structured logging, centralized monitoring, and automated deployment pipelines were demonstrated as essential for robust cloud operations. A few challenges were encountered, including difficulties contacting Heroku support for account setup and resolving artifact packaging issues in CodePipeline, but these were addressed to ensure successful deployment and monitoring of the application.
