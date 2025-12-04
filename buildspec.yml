@@ -2,9 +2,19 @@ version: 0.2
 phases:
   build:
     commands:
-      - cd phonebook
+      # Phonebook build commands
+      # - cd phonebook
+      # - mvn clean install -DskipTests
+
+      # WorkoutTracker build commands
+      - cd WorkoutTracker
       - mvn clean install -DskipTests
+
 artifacts:
   files:
-    - phonebook/target/*.jar
+    # Phonebook artifact
+    # - phonebook/target/*.jar
+
+    # WorkoutTracker artifact
+    - WorkoutTracker/target/*.jar
   discard-paths: yes
