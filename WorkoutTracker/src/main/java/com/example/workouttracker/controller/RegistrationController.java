@@ -37,6 +37,7 @@ public class RegistrationController {
      */
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
+    	logger.info("Registration form requested");
         model.addAttribute("user", new RegistrationDto());
         return "register";
     }
@@ -53,23 +54,29 @@ public class RegistrationController {
                                BindingResult result,
                                Model model) {
 
+    	logger.debug("Processing registration for username='{}', email='{}'", userDto.getUsername(), userDto.getEmail());
+    	
     	// check for existing username
         if (userService.isUsernameTaken(userDto.getUsername())) {
+        	logger.warn("Registration failed: Username '{}' already taken", userDto.getUsername());
             result.rejectValue("username", null, "Username is already taken");
         }
 
         // check for existing email
         if (userService.isEmailTaken(userDto.getEmail())) {
+        	logger.warn("Registration failed: Email '{}' already registered", userDto.getEmail());
             result.rejectValue("email", null, "Email is already registered");
         }
 
         // if there are validation errors, return to registration form
         if (result.hasErrors()) {
+        	logger.info("Validation errors found during registration for '{}'", userDto.getUsername());
             return "register";
         }
 
         // register new user
         userService.registerNewUser(userDto);
+        logger.info("New user registered successfully: '{}'", userDto.getUsername());
         return "redirect:/login?registered";
     }
 }

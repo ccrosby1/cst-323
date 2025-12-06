@@ -44,6 +44,7 @@ public class WorkoutController {
      */
     @GetMapping("/create")
     public String showCreateForm(Model model) {
+    	logger.info("Workout creation form requested");
     	// bind empty object to form
         model.addAttribute("workout", new Workout());
         return "createWorkout";
@@ -60,13 +61,17 @@ public class WorkoutController {
     							BindingResult result,
                                 @AuthenticationPrincipal UserDetails userDetails,
                                 Model model) {
+    	logger.debug("Submitting new workout for user '{}'", userDetails.getUsername());
+    	
     	// check for validation errors
     	if (result.hasErrors()) {
+    		logger.warn("Workout submission failed due to validation errors for user '{}'", userDetails.getUsername());
     		model.addAttribute("workout", workout);
 			return "createWorkout"; // return to form if errors
     	}
         // save workout with associated user
     	workoutService.saveWorkout(workout, userDetails.getUsername());
+    	logger.info("Workout created successfully for user '{}'", userDetails.getUsername());
         return "redirect:/workouts";
     }
     
@@ -81,11 +86,15 @@ public class WorkoutController {
     public String listWorkouts(@RequestParam(value="query", required=false) String query,
     						   @AuthenticationPrincipal UserDetails userDetails, 
     						   Model model) {
+    	logger.debug("Listing workouts for user '{}', search query='{}'", userDetails.getUsername(), query);
+    	
         // get workouts for user
     	List<Workout> workouts = workoutService.getWorkoutsByUsername(userDetails.getUsername());
        
     	// filter workouts if query provided
     	if (query != null && !query.isBlank()) {
+    		logger.info("Filtering workouts for user '{}' with query '{}'", userDetails.getUsername(), query);
+    		
             String lowerQuery = query.toLowerCase();
             workouts = workouts.stream()
                 .filter(w -> w.getName().toLowerCase().contains(lowerQuery)
@@ -99,6 +108,7 @@ public class WorkoutController {
     	// add workouts and query to model
         model.addAttribute("workouts", workouts);
         model.addAttribute("query", query);
+        logger.info("Retrieved {} workouts for user '{}'", workouts.size(), userDetails.getUsername());
         return "listWorkouts";
     }
     
@@ -111,8 +121,10 @@ public class WorkoutController {
     @PostMapping("/delete/{id}")
     public String DeleteWorkout(@PathVariable("id") int id,
     							@AuthenticationPrincipal UserDetails userDetails) {
+    	logger.debug("User '{}' attempting to delete workout with ID {}", userDetails.getUsername(), id);
 		// delete workout by id, send username for verification
 		workoutService.deleteWorkoutById(id, userDetails.getUsername());
+		logger.info("Workout with ID {} deleted by user '{}'", id, userDetails.getUsername());
 		return "redirect:/workouts";
 	}
     
@@ -127,6 +139,7 @@ public class WorkoutController {
     public String showEditForm(@PathVariable("id") int id,
     						   @AuthenticationPrincipal UserDetails userDetails,
 							   Model model) {
+    	logger.debug("User '{}' requesting edit form for workout ID {}", userDetails.getUsername(), id);
     	// get workout by id
 		Workout workout = workoutService.findById(id);
 		model.addAttribute("workout", workout);
@@ -146,8 +159,11 @@ public class WorkoutController {
 							 BindingResult result,
 							 @AuthenticationPrincipal UserDetails userDetails,
 							 Model model) {
+    	logger.debug("User '{}' submitting update for workout ID {}", userDetails.getUsername(), id);
+    	
 		// check for validation errors
     	if (result.hasErrors()) {
+    		logger.warn("Workout update failed due to validation errors for user '{}'", userDetails.getUsername());
     		workout.setId(id); // persist id for form
     		model.addAttribute("workout", workout);
     		return "editWorkout"; // return to form 
@@ -157,6 +173,7 @@ public class WorkoutController {
 		workout.setId(id);
 		// save updated workout
 		workoutService.saveWorkout(workout, userDetails.getUsername());
+		logger.info("Workout with ID {} updated successfully by user '{}'", id, userDetails.getUsername());
 		return "redirect:/workouts";
     }
 }
