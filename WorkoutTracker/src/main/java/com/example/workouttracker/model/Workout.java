@@ -106,13 +106,7 @@ public class Workout {
 
 	@Override
 	public String toString() {
-	    return "Workout{" +
-	            "id=" + id +
-	            ", date=" + date +
-	            ", name='" + name + '\'' +
-	            ", duration=" + duration +
-	            ", muscleGroup='" + muscleGroup + '\'' +
-	            ", notes='" + notes + '\'' +
-	            '}';
+		return String.format("Workout[id=%d, name='%s', user='%s']", id, name, user.getUsername());
+
 	}
 }
