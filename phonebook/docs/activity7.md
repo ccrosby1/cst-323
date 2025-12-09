@@ -1,4 +1,4 @@
-# Activity 6
+# Activity 7
 
 - Author:  Cody Crosby
 - Date:  14 December 2025
@@ -13,28 +13,36 @@
 
 ## Explore cloud IDE
 
-### Import Test Application to 
-
- - Text
+### Import to GitHub Codespaces
  
- ![image](images/AWS-Error.png)
+ ![GitHub Codespace for CST-323 repo](images/GitHub-Codespace.png)
 
-### Day-to-Day Tasks
+ - GitHub Codespaces created in CST-323 repo and projects automatically imported
+  
+ ![Editing code in Codespaces](images/GitHub-Edit.png)
 
- - Text
+ - Editing source code files in Codespaces
+  
+ ![Local deployment](images/GitHub-Local.png)
+
+ - Testing local deployment using Codespaces
+   
+ ![Version control](images/GitHub-Version.png)
+
+ - Version control integrated into Codespaces
  
  |Use Case|Supported (Y/N)|Observations on Usability and Productivity|Other Notes|
  |--|--|--|--|
- |Case1|YN|Observations|Notes|
- |Case2|YN|Observations|Notes|
- |Case3|YN|Observations|Notes|
- |Case4|YN|Observations|Notes|
- |Case5|YN|Observations|Notes|
- |Case6|YN|Observations|Notes|
- |Case7|YN|Observations|Notes|
- |Case8|YN|Observations|Notes|
- |Case9|YN|Observations|Notes|
- |Case10|YN|Observations|Notes|
+ |Editing Code|Y|Editing files in Codespaces feels identical to desktop VS Code. Syntax highlighting, IntelliSense, and navigation features are all present. The responsiveness is generally good, though it would depend on internet speed.|This feature is robust enough to fully replace a desktop IDE for editing tasks|
+ |Running Application Locally|Y|Codespaces allows for running applications inside its containerized environment and preview them in the browser. This makes testing web apps straightforward and convenient. Performance seems adequate for most projects, though heavy workloads may be a bit slower than local.|Codespaces is sufficient for development, but tuning for performance likely still requires local testing|
+ |Debugging|Y|The built-in debugger works well and supports the typical breakpoints and step-through debugging. It provides the same experience as desktop VS Code, which makes troubleshooting feel natural.|Debugging in Codespaces is virtually identical to desktop VS Code|
+ |Version Control|Y|GitHub integration is seamless in Codespaces. Developers can commit, branch, and open pull requests directly from the IDE. Codespaces also provides the ability to automatically create forks.|Version control is likely stronger than many desktop IDEs because of it's directly integrated with GitHub|
+ |Dependency Management|Y|Dependencies can be installed inside the Codespaces container using package managers like npm or Maven, with the process mirroring local development. Installation speed depends on container resources but is generally acceptable.|Dependency management is well supported, though some installs may take longer than on a powerful local machine|
+ |Terminal Access|Y|A full terminal is included within the browser, allowing for the running of shell commands and scripts. This makes it easy to manage environments and perform tasks that go beyond the IDE interface.|Termnial access is easily accesssed within Codespaces|
+ |IntelliSense|Y|IntelliSense works as expected in Codespaces, providing suggestions, auto-completion, and inline documentation. The experience is nearly identical to desktop VS Code.|IntelliSense support is strong enough to replace desktop IDE functionality|
+ |Extension Support|Y|Most VS Code extensions appear to be available in Codespaces, which allows for customization of the environment. Extensions install easily and function as expected. Some extensions that rely on local resources may not work.|There is broad extension support, though specialized tools may need to be verified|
+ |Testing Framework|Y|Unit and integration tests can be run inside Codespaces using the terminal or integrated test runners. Results are displayed clearly, and the workflow is similar to desktop IDEs.|Codespaces supports testing well, though container resources may impact performance|
+ |Resource Monitoring|N|Codespaces does not provide built‑in resource monitoring tools for CPU or memory usage. This limits visibility into performance issues when running resource-intensive applications.|Resource monitoring is not supported, so performance tuning would not be supported the same as a desktop IDE|
  
 ### Research Paper
  
