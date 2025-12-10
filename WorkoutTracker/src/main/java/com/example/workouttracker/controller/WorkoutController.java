@@ -119,7 +119,7 @@ public class WorkoutController {
      * @return redirect to workout list
      */
     @PostMapping("/delete/{id}")
-    public String DeleteWorkout(@PathVariable("id") int id,
+    public String deleteWorkout(@PathVariable("id") int id,
     							@AuthenticationPrincipal UserDetails userDetails) {
     	logger.debug("User '{}' attempting to delete workout with ID {}", userDetails.getUsername(), id);
 		// delete workout by id, send username for verification
